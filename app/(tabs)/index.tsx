@@ -81,7 +81,7 @@ function renderCategoria({item}:{item:any}){
         source={{uri:'https://mir-s3-cdn-cf.behance.net/project_modules/1400/5c3c44212930411.673d9fef7aad7.jpg'}}
         style={[styles.filme, {backgroundColor:item.cor}]}
         >
-          <text                    
+          <Text style={styles.filmeTitulo}> {item.titulo}</Text>         
         </ImageBackground>
         
       )}
