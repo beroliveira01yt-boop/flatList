@@ -1,4 +1,4 @@
-import {View, StyleSheet} from 'react-native';
+import {View, StyleSheet, FlatList} from 'react-native';
 
 const categorias = [
   {
@@ -48,17 +48,38 @@ const categorias = [
       { id: "5b", titulo: "Midsommar", cor: "#190a05" },
       { id: "5c", titulo: "Get Out", cor: "#0a0a0a" },
     ],
-  },
+  }
 ];
 
 
 export default function App() {
     return (
-
-        <View></View>
+        <View>
+            <FlatList
+                        data={categorias}
+                        keyExtractor={item => item.id}
+                        renderItem={
+                          ({item})=>()
+                        }
+                    />
+        </View>
     );
 }
 
+
+function categorias({item}:{item}){
+  return(
+    <View>
+    {item.titulo}
+    </View>
+  )
+}
+
 const styles = StyleSheet.create({
-       
+       categorias:{
+        backgroundColor: '#1A2332',
+        borderRadius: 8,
+        width: 38,
+        height: 38
+       }
 });
