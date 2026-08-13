@@ -8,21 +8,21 @@ export default function TabLayout() {
       screenOptions={{
         headerShown: true,
         headerStyle: {
-          backgroundColor: "#6e0505ff",
+          backgroundColor: "rgb(93, 0, 7)",
           elevation: 0,
           shadowOpacity: 0,
           borderBottomWidth: 1,
-          borderBottomColor: "#f0f0f0ff",
+          borderBottomColor: "rgb(37, 6, 6)",
         },
         headerTitleStyle: {
           fontWeight: "700",
           fontSize: 18,
-          color: "#ffffffff",
+          color: "rgb(254, 248, 248)",
         },
         tabBarActiveTintColor: "#007AFF",
         tabBarInactiveTintColor: "#8E8E93",
         tabBarStyle: {
-          backgroundColor: "#eff157ff",
+          backgroundColor: "rgb(9, 9, 94)",
           borderTopWidth: 1,
           borderTopColor: "#F0F0F0",
           height: Platform.OS === "ios" ? 88 : 64,
@@ -41,96 +41,17 @@ export default function TabLayout() {
           title: "Início",
           tabBarIcon: ({ color, focused }) => (
             <Ionicons
-              name={focused ? "home" : "home-outline"}
+              name={focused ? "link" : "eye"}
               size={24}
               color={color}
             />
           ),
         }}
-      />
+      />    
       <Tabs.Screen
-        name="explore"
+        name="filme"
         options={{
-          title: "Explorar",
-          tabBarIcon: ({ color, focused }) => (
-            <Ionicons
-              name={focused ? "search" : "search-outline"}
-              size={24}
-              color={color}
-            />
-          ),
-        }}
-      />
-
-      <Tabs.Screen
-        name="flex"
-        options={{
-          title: "Flexbox",
-          tabBarIcon: ({ color, focused }) => (
-            <Ionicons
-              name={focused ? "cube" : "cube-outline"}
-              size={24}
-              color={color}
-            />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="view"
-        options={{
-          title: "View",
-          tabBarIcon: ({ color, focused }) => (
-            <Ionicons
-              name={focused ? "menu" : "menu-outline"}
-              size={24}
-              color={color}
-            />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="image"
-        options={{
-          title: "Imagem",
-          tabBarIcon: ({ color, focused }) => (
-            <Ionicons
-              name={focused ? "add-circle" : "add"}
-              size={24}
-              color={color}
-            />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="btnTouch"
-        options={{
-          title: "Botão",
-          tabBarIcon: ({ color, focused }) => (
-            <Ionicons
-              name={focused ? "add" : "add"}
-              size={24}
-              color={color}
-            />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="input"
-        options={{
-          title: "Input",
-          tabBarIcon: ({ color, focused }) => (
-            <Ionicons
-              name={focused ? "add-circle" : "add-circle"}
-              size={24}
-              color={color}
-            />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="flat"
-        options={{
-          title: "FlatList",
+          title: "TITULO FILME",
           tabBarIcon: ({ color, focused }) => (
             <Ionicons
               name={focused ? "list" : "list-outline"}
@@ -139,7 +60,8 @@ export default function TabLayout() {
             />
           ),
         }}
-      />
+      />        
+       
     </Tabs>
   );
 }
