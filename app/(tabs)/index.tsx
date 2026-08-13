@@ -1,5 +1,5 @@
 import { Background } from '@react-navigation/elements';
-import {View, StyleSheet, FlatList, ImageBackground, Image} from 'react-native';
+import {View, StyleSheet, FlatList, Image} from 'react-native';
 import Filme from './filme';
 
 const categorias = [
@@ -78,14 +78,13 @@ function renderCategoria({item}:{item:any}){
       // showsHorizontalScrollIndicator={false}
       contentContainerStyle={{paddingBottom:40}}
       renderItem={({item})=>(
-        <Image
-        source={{uri:item.imagem}}
-        style={[styles.filme, {backgroundColor:item.cor}]}
-        >
-             
-        </Image>
-        
-      )}
+          <Image
+          source={{uri:item.imagem}}
+          style={[styles.filme]}
+          >             
+          </Image>
+          
+        )}
       > </FlatList>
       
     </View>
