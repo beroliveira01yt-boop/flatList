@@ -96,9 +96,6 @@ export default function Filme() {
               { title: "Homem-Aranha: Sem volta para Casa", year: "2021" },
             ].map((item, i) => (
               <TouchableOpacity key={i} style={styles.similarCard} activeOpacity={0.8}>
-                <View style={styles.similarPoster}>
-                  <Text style={styles.similarPlaceholder}>🎬</Text>
-                </View>
                 <Text style={styles.similarTitle} numberOfLines={2}>
                   {item.title}
                 </Text>
