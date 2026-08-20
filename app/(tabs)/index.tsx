@@ -1,6 +1,5 @@
-import { Background } from '@react-navigation/elements';
 import {View, StyleSheet, FlatList, Image} from 'react-native';
-import Filme from './filme';
+
 
 const categorias = [
   {
