@@ -1,13 +1,12 @@
-import { Background } from '@react-navigation/elements';
-import {View, StyleSheet, FlatList, Image} from 'react-native';
-import Filme from './filme';
+import { Link } from 'expo-router';
+import { View, StyleSheet, FlatList, Image, TouchableOpacity } from 'react-native';
 
 const categorias = [
   {
     id: "1",
     titulo: "Em Alta",
     filmes: [
-      { id: "1a", titulo: "Oppenheimer", cor: "#1a1a2e", imagem:"https://mir-s3-cdn-cf.behance.net/project_modules/1400/5c3c44212930411.673d9fef7aad7.jpg", href:"https://mir-s3-cdn-cf.behance.net/project_modules/1400/5c3c44212930411.673d9fef7aad7.jpg" },
+      { id: "1a", titulo: "Oppenheimer", cor: "#1a1a2e", imagem:"https://mir-s3-cdn-cf.behance.net/project_modules/1400/5c3c44212930411.673d9fef7aad7.jpg" },
       { id: "1b", titulo: "Duna 2", cor: "#16213e", imagem:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcrdf5O1qC_1H-8_Maf1tFhlIGilNWhAsY1uRsrzNJKw&s=10"  },
       { id: "1c", titulo: "Barbie", cor: "#0f3460", imagem:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3dYF5Ger5WxMEGMpJlgorZRFUL-J253-SMU6VkxQJFw&s=10"  },
       { id: "1d", titulo: "Poor Things", cor: "#533483", imagem:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxeNlDnmQ8dGJRUAWNjpfhEu9UZhv-Drp46puJiDPdBQ&s=10"  },
@@ -53,7 +52,6 @@ const categorias = [
   }
 ];
 
-
 export default function App() {
     return (
         <View style={styles.corFundo}>
@@ -77,14 +75,13 @@ function renderCategoria({item}:{item:any}){
       horizontal={true}
       // showsHorizontalScrollIndicator={false}
       contentContainerStyle={{paddingBottom:40}}
-      renderItem={({item})=>(
-          <Image
-          source={{uri:item.imagem}}
-          style={[styles.filme]}
-          >             
-          </Image>
-          
-        )}
+      renderItem={({item}) => (
+        <Link href="/filme" asChild>
+          <TouchableOpacity activeOpacity={0.8}>
+            <Image source={{ uri: item.imagem }} style={styles.filme} />
+          </TouchableOpacity>
+        </Link>
+      )}
       > </FlatList>
       
     </View>
