@@ -1,5 +1,7 @@
 import { Link } from 'expo-router';
 import { View, StyleSheet, FlatList, Image, TouchableOpacity } from 'react-native';
+import DadosDosFilmes from '../components/DadosDosFilmes';
+const categorias=DadosDosFilmes();
 export default function App() {
     return (
         <View style={styles.corFundo}>
