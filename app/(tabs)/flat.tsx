@@ -5,6 +5,12 @@ import {
     View
 } from 'react-native';
 
+type ItemData = {
+    id: string;
+    titulo: string;
+    sub: string;
+};
+
 const dados = [
     {
         id: '1', titulo: 'React Hooks',
@@ -59,7 +65,7 @@ const dados = [
     },
 ];
 
-const Item = ({ item, index }) => (
+const Item = ({ item, index }: { item: ItemData; index: number }) => (
     <View style={[
         styles.item,
         {
