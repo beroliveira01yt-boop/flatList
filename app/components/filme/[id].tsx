@@ -1,13 +1,33 @@
+import { Stack, useLocalSearchParams, useRouter } from "expo-router";
 import React, { useState } from "react";
 import {View, Text, Image, ScrollView, TouchableOpacity, StyleSheet, Dimensions, StatusBar, SafeAreaView} from "react-native";
-const { width, height } = Dimensions.get("window");
-const POSTER =
-  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRdlZg-SvVoMttL3uiP9NEehH8GbdPuhR88o842o2ynPg&s=10";
+import DadosDosFilmes from "../DadosDosFilmes";
+
+const categorias = DadosDosFilmes();
+const alturaDaTela = Dimensions.get("window").height;
+
 export default function Filme() {
   const [naMinhaLista, setNaMinhaLista] = useState(false);
+  const router = useRouter();
+  const params = useLocalSearchParams<{ id?: string | string[] }>();
+  const id = Array.isArray(params.id) ? params.id[0] : params.id;
+  const filme = categorias.flatMap((categoria) => categoria.filmes).find((item) => item.id === id);
+
+  if (!filme) {
+    return (
+      <View style={styles.notFound}>
+        <Stack.Screen options={{ headerShown: false }} />
+        <Text style={styles.notFoundText}>Filme não encontrado.</Text>
+        <TouchableOpacity style={styles.backLink} onPress={() => router.back()}>
+          <Text style={styles.backLinkText}>Voltar</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  }
  
   return (
     <View style={styles.container}>
+      <Stack.Screen options={{ headerShown: false }} />
       <StatusBar barStyle="light-content" backgroundColor="#000"/>
  
       <ScrollView
@@ -16,27 +36,27 @@ export default function Filme() {
         contentContainerStyle={{ paddingBottom: 40 }}>
         <View style={styles.hero}>
           <Image
-            source={{ uri: POSTER }}
+            source={{ uri: filme.imagem }}
             style={styles.poster}
             resizeMode="cover"
           />
           <SafeAreaView style={styles.topBar}>
-            <TouchableOpacity style={styles.backBtn} activeOpacity={0.7}>
+            <TouchableOpacity style={styles.backBtn} activeOpacity={0.7} onPress={() => router.back()}>
               <Text style={styles.backIcon}></Text>
             </TouchableOpacity>
           </SafeAreaView>
  
           
           <View style={styles.heroContent}>
-            <Text style={styles.title}>Oppenheimer</Text>
+            <Text style={styles.title}>{filme.titulo}</Text>
  
             <View style={styles.metaRow}>
-              <Text style={styles.match}>91% relevante</Text>
-              <Text style={styles.meta}>2023</Text>
+              <Text style={styles.match}>{filme.relevancia}</Text>
+              <Text style={styles.meta}>{filme.ano}</Text>
               <View style={styles.ageBadge}>
-                <Text style={styles.ageText}>14</Text>
+                <Text style={styles.ageText}>{filme.classificacao}</Text>
               </View>
-              <Text style={styles.meta}>2h 25min</Text>
+              <Text style={styles.meta}>{filme.duracao}</Text>
               <View style={styles.hdBadge}>
               </View>
             </View>
@@ -61,61 +81,59 @@ export default function Filme() {
        
         <View style={styles.infoBlock}>
           <Text style={styles.description}>
-            Filme de bomba
+            {filme.descricao}
           </Text>
  
           <Text style={styles.cast}>
-            <Text style={styles.label}>Elenco: Christopher Nolan </Text>
+            <Text style={styles.label}>Elenco: </Text>{filme.elenco}
             
           </Text>
  
           <Text style={styles.genres}>
             <Text style={styles.label}>Gêneros: </Text>
-            Suspense
+            {filme.generos}
           </Text>
  
           <Text style={styles.director}>
             <Text style={styles.label}>Direção: </Text>
-            Robert Oppenheimer
+            {filme.direcao}
           </Text>
         </View>
 
-        <View style={styles.moreSection}>
-          <Text style={styles.sectionTitle}>Mais como este</Text>
- 
-          <ScrollView
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            contentContainerStyle={{ paddingHorizontal: 16 }}
-          >
-            {[
-              { title: "Homem-Aranha: Longe de Casa", year: "2019" },
-              { title: "Homem-Aranha: De Volta ao Lar", year: "2017" },
-              { title: "Vingadores: Ultimato", year: "2019" },
-              { title: "Doutor Estranho", year: "2016" },
-              { title: "Homem-Aranha: Sem volta para Casa", year: "2021" },
-            ].map((item, i) => (
-              <TouchableOpacity key={i} style={styles.similarCard} activeOpacity={0.8}>
-                <Text style={styles.similarTitle} numberOfLines={2}>
-                  {item.title}
-                </Text>
-                <Text style={styles.similarYear}>{item.year}</Text>
-              </TouchableOpacity>
-            ))}
-          </ScrollView>
-        </View>
       </ScrollView>
     </View>
   );
 }
  
 const styles = StyleSheet.create({
+  notFound: {
+    flex: 1,
+    backgroundColor: "#141414",
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 24,
+  },
+  notFoundText: {
+    color: "#fff",
+    fontSize: 18,
+    marginBottom: 16,
+  },
+  backLink: {
+    backgroundColor: "#fff",
+    borderRadius: 4,
+    paddingHorizontal: 24,
+    paddingVertical: 10,
+  },
+  backLinkText: {
+    color: "#000",
+    fontWeight: "700",
+  },
   container: {
     flex: 1,
     backgroundColor: "#141414",
   },
   hero: {
-    height: height * 0.58,
+    height: alturaDaTela * 0.58,
     width: "100%",
     position: "relative",
   },
@@ -272,41 +290,5 @@ const styles = StyleSheet.create({
   },
   label: {
     color: "#777",
-  },
-  moreSection: {
-    marginTop: 28,
-  },
-  sectionTitle: {
-    color: "#fff",
-    fontSize: 17,
-    fontWeight: "700",
-    marginBottom: 12,
-    paddingHorizontal: 16,
-  },
-  similarCard: {
-    width: 110,
-    marginRight: 10,
-  },
-  similarPoster: {
-    width: 110,
-    height: 155,
-    backgroundColor: "#2a2a2a",
-    borderRadius: 4,
-    alignItems: "center",
-    justifyContent: "center",
-    marginBottom: 6,
-  },
-  similarPlaceholder: {
-    fontSize: 28,
-  },
-  similarTitle: {
-    color: "#e5e5e5",
-    fontSize: 12,
-    fontWeight: "500",
-  },
-  similarYear: {
-    color: "#888",
-    fontSize: 11,
-    marginTop: 2,
   },
 });

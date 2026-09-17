@@ -1,7 +1,7 @@
 import { Link } from 'expo-router';
 import { View, StyleSheet, FlatList, Image, TouchableOpacity } from 'react-native';
-import DadosDosFilmes from '../components/DadosDosFilmes';
-const categorias=DadosDosFilmes();
+import DadosDosFilmes, { Categoria, Filme } from '../components/DadosDosFilmes';
+const categorias = DadosDosFilmes();
 export default function App() {
     return (
         <View style={styles.corFundo}>
@@ -15,7 +15,7 @@ export default function App() {
 }
 
 
-function renderCategoria({item}:{item:any}){
+function renderCategoria({item}:{item: Categoria}){
   return(
     <View style={styles.categorias}>
     {item.titulo}
@@ -25,8 +25,8 @@ function renderCategoria({item}:{item:any}){
       horizontal={true}
       // showsHorizontalScrollIndicator={false}
       contentContainerStyle={{paddingBottom:40}}
-      renderItem={({item}) => (
-        <Link href="/filme" asChild>
+      renderItem={({item}: { item: Filme }) => (
+        <Link href={{ pathname: '/components/filme/[id]', params: { id: item.id } }} asChild>
           <TouchableOpacity activeOpacity={0.8}>
             <Image source={{ uri: item.imagem }} style={styles.filme} />
           </TouchableOpacity>
