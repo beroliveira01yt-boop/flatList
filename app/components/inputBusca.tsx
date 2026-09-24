@@ -35,7 +35,7 @@ export default function InputBusca({
             <View style={styles.inputWrapper}>
                 <TextInput
                     style={styles.input}
-                    placeholder={placeholder}
+                    placeholder=""
                     placeholderTextColor="#94A3B8"
                     value={texto}
                     onChangeText={setTexto}
